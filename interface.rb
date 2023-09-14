@@ -74,6 +74,9 @@ class TrainApp
 
     choice == 1 ? PassengerCar.new(number, capacity) : CargoCar.new(number, capacity)
     print_text("Создан новый вагон <#{Car.all.last.number}>")
+  rescue ArgumentError => e
+    puts e.message
+    retry
   end
 
   def add_wagon_to_train
@@ -110,6 +113,11 @@ class TrainApp
     end
   end
 
+  def list_all_trains
+    print_text('Список поездов:')
+    Train.all.each_with_index { |v, i| puts "#{i}. #{v.number}, #{v.type}" }
+  end
+
   def train_car_list
     list_all_trains
     train = Train.all[ask('Выберите поезд: ').to_i]
@@ -118,6 +126,11 @@ class TrainApp
       print_text("Вагон № #{car.number} (тип: #{car.type})
 Загрузка: #{car.used_place} из #{car.total_place}, свободно: #{car.free_place}")
     end
+  end
+
+  def print_cars
+    print_text('Список вагонов:')
+    Car.all.each_with_index { |v, i| puts "#{i}. #{v.number}, #{v.type}" }
   end
 
   def list_stations

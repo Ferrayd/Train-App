@@ -10,5 +10,4 @@ class CargoTrain < Train
   validate :number, :presence
   validate :number, :type, String
   validate :number, :format, NUM_FORMAT
-  
 end

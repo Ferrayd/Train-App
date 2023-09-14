@@ -2,7 +2,7 @@
 
 # Родительский класс для создания вагонов
 class Car
-  attr_reader :number, :type, :total_place, :used_place
+  attr_reader :number, :total_place, :used_place, :type
 
   include Information
   include Validation
@@ -24,12 +24,4 @@ class Car
   def free_place
     total_place - used_place
   end
-
-  def print_cars
-    print_text('Список вагонов:')
-    Car.all.each_with_index { |v, i| puts "#{i}. #{v.number}, #{v.type}" }
-  end
-
-  protected
-
 end

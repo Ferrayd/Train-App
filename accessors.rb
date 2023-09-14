@@ -1,16 +1,17 @@
+# frozen_string_literal: true
 
 # Метод динамически создает геттеры и сеттеры для любого кол-ва атрибутов
 module Accessors
   def attr_accessor_with_history(*args)
     args.each do |val_name|
       define_method("#{val_name}_history") do
-        instance_eval("@#{val_name}_history ||= []")
+        instance_eval("@#{val_name}_history ||= []", __FILE__, __LINE__)
       end
       define_method(val_name) do
         instance_variable_get("@#{val_name}")
       end
       define_method("#{val_name}=") do |value|
-        instance_eval("#{val_name}_history << value")
+        instance_eval("#{val_name}_history << value", __FILE__, __LINE__)
         instance_variable_set("@#{val_name}", value)
       end
     end
@@ -23,8 +24,9 @@ module Accessors
       end
       define_method("#{val_name}=") do |values|
         values = *values.compact
-        raise ArgumentError, "Несоответствие параметров" unless values.size != 2
-        raise ArgumentError, "Несоответствие типов" unless values.first.is_a?(values.last) 
+        raise ArgumentError, 'Несоответствие параметров' unless values.size != 2
+        raise ArgumentError, 'Несоответствие типов' unless values.first.is_a?(values.last)
+
         instance_variable_set("@#{val_name}", values.first)
       end
     end

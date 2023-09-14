@@ -65,11 +65,6 @@ class Train
     end
   end
 
-  def list_all_trains
-    print_text('Список поездов:')
-    Train.all.each_with_index { |v, i| puts "#{i}. #{v.number}, #{v.type}" }
-  end
-
   def stations_around
     return if route.nil?
 
@@ -89,5 +84,4 @@ class Train
 
     puts "Предыдущая станция - #{route.stations[station_index - 1].name}."
   end
-
 end
