@@ -2,12 +2,15 @@
 
 # Родительский класс для создания поезда
 class Train
-  attr_reader :number, :cars, :type, :speed, :route, :station
-
   include Counter
   include Information
   include Validation
+  extend Accessors
 
+  attr_reader :number, :cars, :type, :speed, :route, :station
+  attr_accessor_with_history :depo, :owner
+  strong_attr_accessor :inspection_date, :repair_date
+  
   NUM_FORMAT = /^\w{3}-?\w{2}$/i
 
   def initialize(number)

@@ -64,6 +64,9 @@ class TrainApp
 
     choice == 1 ? PassengerTrain.new(number) : CargoTrain.new(number)
     print_text("Создан поезд #{Train.all.last.type} №#{number}")
+  rescue ArgumentError => e
+    puts e.message
+    retry
   end
 
   def create_car
